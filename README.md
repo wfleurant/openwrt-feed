@@ -1,3 +1,27 @@
+## Stuck notes
+    WIP: See notes in Makefile
+            include config.log:
+            > checking whether iconv supports //IGNORE... no
+            > checking whether iconv supports state reset... no
+            > checking for iconv declaration...
+            > checking pcre.h usability... yes
+            > checking pcre.h presence... yes
+            > checking for pcre.h... yes
+            > checking for pcre_compile in -lpcre... yes
+            > checking for pcre32_compile in -lpcre32... no
+            > configure: error: libpcre32 is requred
+            > Makefile:153: recipe for target
+    '/dev/shm/openwrt-trunk/build_dir/target-mips_24kc_musl/netxms-agent-nossl/netxms-3.0.2329/.configured_68b329da9893e34099c7d8ad5cb9c940'
+    failed
+            > make[2]: ***
+    [/dev/shm/openwrt-trunk/build_dir/target-mips_24kc_musl/netxms-agent-nossl/netxms-3.0.2329/.configured_68b329da9893e34099c7d8ad5cb9c940]
+    Error 1
+            > make[2]: Leaving directory
+    '/dev/shm/openwrt-trunk/feeds/netxms/admin/netxms'
+            > time:
+    package/feeds/netxms/netxms/nossl/compile#31.53#7.06#37.07
+
+
 
 ## Builds NetXMS Agent with OpenWrt SDK
 
@@ -29,3 +53,4 @@ echo "src-link xms /dev/shm/openwrt-sdk-ar71xx-generic_gcc-7.4.0_musl.Linux-x86_
 
 
 ```
+
