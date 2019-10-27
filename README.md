@@ -1,14 +1,31 @@
-# OpenWrt feed for NetXMS
 
-How to use it:
+## Builds NetXMS Agent with OpenWrt SDK
 
-1. Clone OpenWrt tree from git://git.openwrt.org/openwrt.git (or use snapshot, etc.)
-1. Run `make menuconfig` and perform inital configuration (platform, desired libc, etc.)
-1. Run `make` to build tools and cross-compiler
-1. Add `src-git netxms https://github.com/netxms/openwrt-feed.git` to `feeds.conf`
-1. Run `./scripts/feeds update netxms` (or `./scripts/feeds update` to update all feeds)
-1. `./scripts/feeds install -a -p netxms`
-1. `make menuconfig`, then select required package in `Administration` -> `NetXMS`.
-1. `make package/netxms/install` will build and install NetXMS packages into bin/
+Status: `Not working`  
 
-Packages will be in `bin/platform-name/packages/netxms/`
+
+```
+
+#!/bin/bash
+
+#############################################
+mkdir /dev/shm/x && cd /dev/shm/x || exit 1
+#############################################
+git clone https://github.com/wfleurant/openwrt-feed.git \
+    -b libpcre \
+    netxms-agent-openwrt \
+|| exit 1
+
+#############################################
+mkdir /dev/shm/o && cd /dev/shm/o || exit 1
+#############################################
+wget http://cdn.openwrt.org/snapshots/targets/mvebu/cortexa53/openwrt-sdk-mvebu-cortexa53_gcc-8.3.0_musl.Linux-x86_64.tar.xz
+tar Jxvf ./openwrt-sdk-mvebu-cortexa53_gcc-8.3.0_musl.Linux-x86_64.tar.xz || exit 1
+cd ./openwrt-sdk-mvebu-cortexa53_gcc-8.3.0_musl.Linux-x86_64 || exit 1
+ln -s /dev/shm/x/netxms-agent-openwrt || exit 1
+echo "src-link xms /dev/shm/openwrt-sdk-ar71xx-generic_gcc-7.4.0_musl.Linux-x86_64/netxms-agent-openwrt" >> feeds.conf.default
+./scripts/feeds update -a
+./scripts/feeds install netxms
+
+
+```
